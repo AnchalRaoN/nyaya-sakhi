@@ -58,10 +58,13 @@ Everything else — WhatsApp messaging, PDF generation, session tracking, emerge
 
 ## 🔗 Live Links
 
-- **Live Demo Dashboard**: https://nyaya-sakhi.netlify.app *(update with your actual Netlify URL)*
-- **Deployed Backend**: https://nyaya-sakhi.onrender.com *(update with your actual Render URL)*
-- **GitHub Repository**: https://github.com/AnchalRaoN/nyaya-sakhi
-- **WhatsApp Sandbox**: Message `+1 415 523 8886` after joining the Twilio sandbox
+• Live Demo: https://splendorous-puppy-37626c.netlify.app
+
+• Backend API: https://nyaya-sakhi.onrender.com
+
+• GitHub Repository: https://github.com/AnchalRaoN/nyaya-sakhi
+
+• WhatsApp Sandbox: Message +1 415 523 8886 after joining the Twilio Sandbox
 
 ---
 
