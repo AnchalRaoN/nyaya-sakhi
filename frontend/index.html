@@ -390,7 +390,7 @@
       <a href="#demo" class="nav-link">Demo</a>
       <a href="#how" class="nav-link">How it works</a>
       <a href="#stack" class="nav-link">Tech stack</a>
-      <a href="https://github.com" class="nav-cta" target="_blank">GitHub →</a>
+      <a href="https://github.com/AnchalRaoN/nyaya-sakhi" class="nav-cta" target="_blank">GitHub →</a>
     </div>
   </div>
 </nav>
@@ -409,7 +409,7 @@
       <span>Legal aid for every<br/><span class="highlight">Indian woman.</span></span>
     </h1>
     <p class="hero-sub">
-      An agentic AI system that collapses the legal access gap — voice-to-FIR in 90 seconds,
+      An agentic AI system that collapses the legal access gap — voice-to-FIR in minutes,
       in your language, on WhatsApp, at zero cost.
     </p>
     <div class="hero-stats">
@@ -484,7 +484,7 @@ Please tell me what happened. I am listening. 🕊️</div>
         <div class="agent-icon">🎙️</div>
         <div class="agent-info">
           <div class="agent-name">Agent 1 — Intake</div>
-          <div class="agent-desc">Conversational extraction via Claude. Gently gathers incident type, date, location, perpetrator, evidence.</div>
+          <div class="agent-desc">Conversational extraction via Gemini Flash. Gently gathers incident details, timeline, location, evidence and required legal help.</div>
         </div>
         <span class="agent-status status-active" id="a1status">ACTIVE</span>
       </div>
@@ -493,7 +493,7 @@ Please tell me what happened. I am listening. 🕊️</div>
         <div class="agent-icon">📚</div>
         <div class="agent-info">
           <div class="agent-name">Agent 2 — Law RAG</div>
-          <div class="agent-desc">pgvector semantic search over Indian legal corpus. Maps case to PWDVA, IPC, POSH Act, and more.</div>
+          <div class="agent-desc">ChromaDB semantic retrieval over an Indian legal knowledge base to identify relevant legal provisions.</div>
         </div>
         <span class="agent-status status-waiting" id="a2status">WAITING</span>
       </div>
@@ -502,7 +502,7 @@ Please tell me what happened. I am listening. 🕊️</div>
         <div class="agent-icon">📄</div>
         <div class="agent-info">
           <div class="agent-name">Agent 3 — Drafter</div>
-          <div class="agent-desc">Claude generates legally-structured FIR, RTI application, NCW complaint letter as PDF.</div>
+          <div class="agent-desc">Gemini Flash drafts the FIR complaint and ReportLab generates the final PDF.</div>
         </div>
         <span class="agent-status status-waiting" id="a3status">WAITING</span>
       </div>
@@ -546,7 +546,7 @@ Please tell me what happened. I am listening. 🕊️</div>
       <div class="step-num">1</div>
       <div class="step-body">
         <div class="step-title">🎙️ Speak in your language</div>
-        <div class="step-desc">Send a voice note or text on WhatsApp in Hindi, Kannada, Tamil, Telugu, or English. Bhashini STT transcribes it in real time (~300ms latency). Agent 1 gently asks follow-up questions to extract the full case picture.</div>
+        <div class="step-desc">Send a voice note or text on WhatsApp in Hindi, Kannada, Tamil, Telugu, or English. Whisper locally transcribes voice notes into text before AI processing. Agent 1 gently asks follow-up questions to extract the full case picture.</div>
       </div>
     </div>
     <div class="step">
@@ -554,15 +554,15 @@ Please tell me what happened. I am listening. 🕊️</div>
       <div class="step-num">2</div>
       <div class="step-body">
         <div class="step-title">📚 AI finds your legal rights</div>
-        <div class="step-desc">Agent 2 runs a semantic search over a curated Indian legal corpus using pgvector embeddings. It maps your case to the exact sections of PWDVA 2005, IPC/BNS 498A, POSH Act, Dowry Prohibition Act, and more.</div>
+        <div class="step-desc">Agent 2 runs a semantic search over a curated Indian legal corpus using ChromaDB semantic retrieval. It maps your case to the exact sections of PWDVA 2005, IPC/BNS 498A, POSH Act, Dowry Prohibition Act, and more.</div>
       </div>
     </div>
     <div class="step">
       <div class="step-line"></div>
       <div class="step-num">3</div>
       <div class="step-body">
-        <div class="step-title">📄 Documents drafted by Claude</div>
-        <div class="step-desc">Agent 3 uses Claude to write a legally-structured FIR application, RTI request, and NCW complaint — in first-person narrative, with correct IPC sections cited. ReportLab generates a bilingual PDF.</div>
+        <div class="step-title">📄 Documents drafted by Gemini Flash</div>
+        <div class="step-desc">Gemini Flash prepares a structured FIR complaint, and ReportLab generates the final PDF.</div>
       </div>
     </div>
     <div class="step">
@@ -583,14 +583,14 @@ Please tell me what happened. I am listening. 🕊️</div>
     <p>Every tool chosen for reliability, India-region compliance, and zero cost to the user.</p>
   </div>
   <div class="stack-grid">
-    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Claude claude-sonnet-4-6</div><div class="stack-role">Intake extraction, FIR drafting, Safety planning (Anthropic)</div></div>
-    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">LangGraph 0.2</div><div class="stack-role">Stateful multi-agent orchestration with typed CaseState</div></div>
-    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Bhashini / Dhruva</div><div class="stack-role">12 Indian languages STT/TTS, free, government-backed</div></div>
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Gemini Flash</div><div class="stack-role">Multilingual conversation, legal reasoning and FIR drafting</div></div>
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Whisper</div><div class="stack-role">Local Speech-to-Text for WhatsApp voice messages</div></div>
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">gTTS</div><div class="stack-role">Text-to-Speech for multilingual voice responses</div></div>
     <div class="stack-card"><span class="stack-tag tag-backend">Backend</span><div class="stack-name">FastAPI + Uvicorn</div><div class="stack-role">Async Python server, Twilio webhook handler</div></div>
     <div class="stack-card"><span class="stack-tag tag-backend">Backend</span><div class="stack-name">Twilio WhatsApp</div><div class="stack-role">Webhook receiver, OGG audio, PDF media delivery</div></div>
-    <div class="stack-card"><span class="stack-tag tag-data">Data</span><div class="stack-name">Supabase + pgvector</div><div class="stack-role">Legal corpus embeddings, India region, DPDP compliant</div></div>
+    <div class="stack-card"><span class="stack-tag tag-data">Data</span><div class="stack-name">ChromaDB</div><div class="stack-role">Vector database for semantic legal retrieval</div></div>
     <div class="stack-card"><span class="stack-tag tag-data">Data</span><div class="stack-name">all-MiniLM-L6-v2</div><div class="stack-role">Sentence embeddings for legal section similarity search</div></div>
-    <div class="stack-card"><span class="stack-tag tag-infra">Infra</span><div class="stack-name">Railway</div><div class="stack-role">Deployed backend with auto-scaling, HTTPS, zero cold start</div></div>
+    <div class="stack-card"><span class="stack-tag tag-infra">Infra</span><div class="stack-name">Render</div><div class="stack-role">Cloud hosting for the FastAPI backend</div></div>
     <div class="stack-card"><span class="stack-tag tag-backend">PDF</span><div class="stack-name">ReportLab</div><div class="stack-role">Bilingual FIR PDF with NotoDevanagari font for Hindi</div></div>
   </div>
 </section>
