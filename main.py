@@ -200,13 +200,15 @@ async def demo(request: Request):
     response, session, pdf_path = await run_pipeline(user_input, session, session_id)
     session_manager.save(session_id, session)
 
-    return {
-        "response":      response,
-        "stage":         session.get("stage", "intake"),
-        "extracted":     session.get("extracted", {}),
-        "law_sections":  session.get("law_sections", []),
-        "pdf_generated": pdf_path is not None
-    }
+    pdf_url = f"/static/{os.path.basename(pdf_path)}" if pdf_path else None
+return {
+    "response":      response,
+    "stage":         session.get("stage", "intake"),
+    "extracted":     session.get("extracted", {}),
+    "law_sections":  session.get("law_sections", []),
+    "pdf_generated": pdf_path is not None,
+    "pdf_url":       pdf_url
+}
 
 @app.get("/api/stats")
 def stats():

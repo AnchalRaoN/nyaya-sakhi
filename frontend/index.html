@@ -523,14 +523,13 @@ Please tell me what happened. I am listening. 🕊️</div>
       </div>
 
       <div class="pdf-ready" id="pdfReady" style="display:none">
-        <div class="pdf-icon">📎</div>
-        <div class="pdf-text">
-          <div class="pdf-title">Documents ready</div>
-          <div class="pdf-sub">FIR draft · RTI application · NCW complaint</div>
-        </div>
-      </div>
-    </div>
+  <div class="pdf-icon">📎</div>
+  <div class="pdf-text">
+    <div class="pdf-title">Documents ready</div>
+    <div class="pdf-sub">FIR draft · RTI application · NCW complaint</div>
+    <a id="pdfLink" href="#" target="_blank" style="color:#FF8C38;font-size:12px;text-decoration:underline;">View PDF →</a>
   </div>
+</div>
 </section>
 
 <!-- HOW IT WORKS -->
@@ -733,8 +732,13 @@ function updatePipeline(data) {
   } else if (stage === 'complete') {
     setAgent(1, 'done'); setAgent(2, 'done'); setAgent(3, 'done');
     if (laws.length) showLaws(laws);
-    if (pdfDone) document.getElementById('pdfReady').style.display = 'flex';
-  }
+    if (pdfDone) {
+        if (data.pdf_url) {
+            document.getElementById('pdfLink').href = `${API}${data.pdf_url}`;
+        }
+        document.getElementById('pdfReady').style.display = 'flex';
+    }
+}
 }
 
 function setField(id, val) {
