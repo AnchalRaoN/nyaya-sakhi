@@ -58,15 +58,19 @@ Everything else — WhatsApp messaging, PDF generation, session tracking, emerge
 
 ## 🔗 Live Links
 
-• Live Demo: https://splendorous-puppy-37626c.netlify.app
+- Live Demo: https://splendorous-puppy-37626c.netlify.app
 
-• Backend API: https://nyaya-sakhi.onrender.com
+- Backend API: https://nyaya-sakhi.onrender.com
 
-• GitHub Repository: https://github.com/AnchalRaoN/nyaya-sakhi
+- GitHub Repository: https://github.com/AnchalRaoN/nyaya-sakhi
 
-• WhatsApp Sandbox: Message +1 415 523 8886 after joining the Twilio Sandbox
+- **WhatsApp Sandbox:** +1 415 523 8886
 
----
+To test the WhatsApp bot, first send this one-time message:
+
+```text
+join brain-crop
+```
 
 ## 🚀 Quick Start (Run Locally)
 
