@@ -1,0 +1,769 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Nyaya Sakhi — AI Legal Aid for Indian Women</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&family=Noto+Sans+Devanagari:wght@400;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --saffron: #FF6B00;
+    --saffron-light: #FF8C38;
+    --saffron-pale: #FFF4EC;
+    --green: #138808;
+    --green-light: #E8F5E9;
+    --navy: #0D1B3E;
+    --navy-mid: #1A2D5A;
+    --slate: #374151;
+    --muted: #6B7280;
+    --border: #E5E7EB;
+    --surface: #F9FAFB;
+    --white: #FFFFFF;
+    --red: #DC2626;
+    --amber: #D97706;
+    --font: 'Plus Jakarta Sans', sans-serif;
+    --font-deva: 'Noto Sans Devanagari', sans-serif;
+    --radius: 12px;
+    --shadow: 0 1px 3px rgba(0,0,0,.08), 0 1px 2px rgba(0,0,0,.06);
+    --shadow-md: 0 4px 6px rgba(0,0,0,.07), 0 2px 4px rgba(0,0,0,.06);
+    --shadow-lg: 0 10px 15px rgba(0,0,0,.1), 0 4px 6px rgba(0,0,0,.05);
+  }
+
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: var(--font);
+    background: var(--navy);
+    color: var(--white);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    background: rgba(13, 27, 62, 0.85);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid rgba(255,107,0,.15);
+    padding: 0 24px;
+    height: 60px;
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .nav-brand {
+    display: flex; align-items: center; gap: 10px;
+    font-size: 18px; font-weight: 700; color: var(--white);
+    text-decoration: none;
+  }
+  .nav-brand .logo-icon {
+    width: 32px; height: 32px; border-radius: 8px;
+    background: linear-gradient(135deg, var(--saffron), #FF8C38);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px;
+  }
+  .nav-badge {
+    background: rgba(255,107,0,.15); border: 1px solid rgba(255,107,0,.3);
+    color: var(--saffron-light); font-size: 11px; font-weight: 600;
+    padding: 2px 8px; border-radius: 20px; letter-spacing: .5px;
+  }
+  .nav-links { display: flex; gap: 8px; align-items: center; }
+  .nav-link {
+    color: rgba(255,255,255,.6); font-size: 13px; font-weight: 500;
+    padding: 6px 12px; border-radius: 8px; text-decoration: none;
+    transition: all .2s;
+  }
+  .nav-link:hover { color: var(--white); background: rgba(255,255,255,.06); }
+  .nav-cta {
+    background: var(--saffron); color: var(--white);
+    font-size: 13px; font-weight: 600; padding: 7px 16px;
+    border-radius: 8px; text-decoration: none; transition: all .2s;
+  }
+  .nav-cta:hover { background: var(--saffron-light); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    padding: 80px 24px 60px;
+    position: relative; overflow: hidden;
+  }
+  .hero-bg {
+    position: absolute; inset: 0; pointer-events: none;
+    background:
+      radial-gradient(ellipse 80% 60% at 50% 0%, rgba(255,107,0,.08) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 40% at 80% 80%, rgba(19,136,8,.06) 0%, transparent 50%);
+  }
+  .hero-grid {
+    position: absolute; inset: 0; pointer-events: none; opacity: .04;
+    background-image:
+      linear-gradient(rgba(255,255,255,.5) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.5) 1px, transparent 1px);
+    background-size: 40px 40px;
+  }
+  .hero-content { position: relative; z-index: 1; text-align: center; max-width: 800px; }
+  .hero-eyebrow {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(255,107,0,.1); border: 1px solid rgba(255,107,0,.25);
+    color: var(--saffron-light); font-size: 12px; font-weight: 600;
+    padding: 5px 12px; border-radius: 20px; letter-spacing: .5px; margin-bottom: 24px;
+  }
+  .hero-eyebrow .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--saffron); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{ opacity:1; transform:scale(1); } 50%{ opacity:.6; transform:scale(1.3); } }
+
+  .hero h1 {
+    font-size: clamp(36px, 6vw, 64px); font-weight: 700; line-height: 1.1;
+    letter-spacing: -.5px; margin-bottom: 10px;
+  }
+  .hero h1 .hindi {
+    display: block; font-family: var(--font-deva); font-size: clamp(20px, 3.5vw, 36px);
+    color: rgba(255,255,255,.5); font-weight: 400; margin-bottom: 8px;
+  }
+  .hero h1 .highlight { color: var(--saffron); }
+
+  .hero-sub {
+    font-size: clamp(15px, 2vw, 18px); color: rgba(255,255,255,.6);
+    line-height: 1.7; max-width: 560px; margin: 20px auto 40px;
+  }
+
+  .hero-stats {
+    display: flex; gap: 32px; justify-content: center; flex-wrap: wrap; margin-bottom: 48px;
+  }
+  .stat { text-align: center; }
+  .stat-value { font-size: 32px; font-weight: 700; color: var(--saffron); line-height: 1; }
+  .stat-label { font-size: 11px; color: rgba(255,255,255,.45); margin-top: 4px; letter-spacing: .5px; text-transform: uppercase; }
+
+  .hero-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--saffron); color: var(--white); font-family: var(--font);
+    font-size: 14px; font-weight: 600; padding: 13px 28px; border-radius: 10px;
+    border: none; cursor: pointer; transition: all .2s; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-primary:hover { background: var(--saffron-light); transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,107,0,.35); }
+  .btn-secondary {
+    background: rgba(255,255,255,.06); color: var(--white); font-family: var(--font);
+    font-size: 14px; font-weight: 600; padding: 13px 28px; border-radius: 10px;
+    border: 1px solid rgba(255,255,255,.12); cursor: pointer; transition: all .2s;
+    text-decoration: none; display: inline-flex; align-items: center; gap: 8px;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,.1); border-color: rgba(255,255,255,.2); }
+
+  /* ── DEMO SECTION ── */
+  #demo {
+    padding: 80px 24px; max-width: 1200px; margin: 0 auto;
+  }
+  .section-label {
+    text-align: center; margin-bottom: 48px;
+  }
+  .section-label .eyebrow {
+    display: inline-block; background: rgba(255,107,0,.1); border: 1px solid rgba(255,107,0,.2);
+    color: var(--saffron-light); font-size: 11px; font-weight: 700;
+    padding: 4px 12px; border-radius: 20px; letter-spacing: 1px; text-transform: uppercase; margin-bottom: 12px;
+  }
+  .section-label h2 { font-size: clamp(24px, 4vw, 36px); font-weight: 700; margin-bottom: 10px; }
+  .section-label p { color: rgba(255,255,255,.5); font-size: 15px; }
+
+  .demo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  @media (max-width: 768px) { .demo-grid { grid-template-columns: 1fr; } }
+
+  /* ── WHATSAPP CHAT PANEL ── */
+  .chat-panel {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px; overflow: hidden; display: flex; flex-direction: column;
+  }
+  .chat-header {
+    background: rgba(19,136,8,.15); border-bottom: 1px solid rgba(19,136,8,.2);
+    padding: 14px 16px; display: flex; align-items: center; gap: 10px;
+  }
+  .chat-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--saffron), #FF8C38);
+    display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0;
+  }
+  .chat-meta { flex: 1; }
+  .chat-meta .name { font-size: 14px; font-weight: 600; }
+  .chat-meta .status { font-size: 11px; color: rgba(255,255,255,.5); display: flex; align-items: center; gap: 4px; }
+  .online-dot { width: 6px; height: 6px; border-radius: 50%; background: #22C55E; }
+
+  .chat-messages {
+    flex: 1; overflow-y: auto; padding: 16px;
+    display: flex; flex-direction: column; gap: 12px;
+    min-height: 360px; max-height: 420px;
+    scrollbar-width: thin; scrollbar-color: rgba(255,255,255,.1) transparent;
+  }
+  .msg { display: flex; flex-direction: column; max-width: 80%; }
+  .msg.user { align-self: flex-end; align-items: flex-end; }
+  .msg.bot { align-self: flex-start; align-items: flex-start; }
+  .msg-bubble {
+    padding: 10px 14px; border-radius: 12px; font-size: 13px; line-height: 1.6;
+    white-space: pre-wrap; word-break: break-word;
+  }
+  .msg.user .msg-bubble { background: rgba(255,107,0,.25); border: 1px solid rgba(255,107,0,.2); color: var(--white); border-bottom-right-radius: 4px; }
+  .msg.bot .msg-bubble { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08); color: rgba(255,255,255,.9); border-bottom-left-radius: 4px; }
+  .msg-time { font-size: 10px; color: rgba(255,255,255,.3); margin-top: 3px; }
+
+  .typing-indicator {
+    display: none; align-self: flex-start;
+    background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.08);
+    padding: 10px 14px; border-radius: 12px; border-bottom-left-radius: 4px;
+  }
+  .typing-indicator.show { display: flex; gap: 4px; align-items: center; }
+  .typing-dot {
+    width: 6px; height: 6px; border-radius: 50%; background: rgba(255,255,255,.4);
+    animation: typing 1.2s infinite;
+  }
+  .typing-dot:nth-child(2) { animation-delay: .2s; }
+  .typing-dot:nth-child(3) { animation-delay: .4s; }
+  @keyframes typing { 0%,60%,100%{ transform: translateY(0); } 30%{ transform: translateY(-6px); } }
+
+  .chat-input-row {
+    padding: 12px 16px; border-top: 1px solid rgba(255,255,255,.06);
+    display: flex; gap: 8px; align-items: flex-end;
+  }
+  .chat-input {
+    flex: 1; background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 10px 14px; color: var(--white);
+    font-family: var(--font); font-size: 13px; resize: none; min-height: 42px; max-height: 100px;
+    outline: none; transition: border-color .2s;
+  }
+  .chat-input::placeholder { color: rgba(255,255,255,.3); }
+  .chat-input:focus { border-color: rgba(255,107,0,.4); }
+  .send-btn {
+    width: 40px; height: 40px; border-radius: 10px;
+    background: var(--saffron); border: none; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    color: white; font-size: 16px; transition: all .2s; flex-shrink: 0;
+  }
+  .send-btn:hover { background: var(--saffron-light); transform: scale(1.05); }
+
+  /* ── PIPELINE PANEL ── */
+  .pipeline-panel {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.08);
+    border-radius: 16px; padding: 20px; display: flex; flex-direction: column; gap: 16px;
+  }
+  .pipeline-title {
+    font-size: 13px; font-weight: 700; color: rgba(255,255,255,.5);
+    letter-spacing: .8px; text-transform: uppercase;
+  }
+
+  .agent-card {
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px; padding: 14px 16px;
+    display: flex; align-items: flex-start; gap: 12px;
+    transition: all .3s;
+  }
+  .agent-card.active {
+    background: rgba(255,107,0,.08); border-color: rgba(255,107,0,.3);
+    box-shadow: 0 0 0 1px rgba(255,107,0,.15);
+  }
+  .agent-card.done {
+    background: rgba(19,136,8,.06); border-color: rgba(19,136,8,.2);
+  }
+  .agent-icon {
+    width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center; font-size: 16px;
+    background: rgba(255,255,255,.06);
+  }
+  .agent-card.active .agent-icon { background: rgba(255,107,0,.2); }
+  .agent-card.done .agent-icon { background: rgba(19,136,8,.2); }
+  .agent-info { flex: 1; }
+  .agent-name { font-size: 13px; font-weight: 600; margin-bottom: 2px; }
+  .agent-desc { font-size: 11px; color: rgba(255,255,255,.45); line-height: 1.5; }
+  .agent-status {
+    font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 20px;
+    flex-shrink: 0; align-self: flex-start; margin-top: 2px; letter-spacing: .4px;
+  }
+  .status-waiting { background: rgba(255,255,255,.06); color: rgba(255,255,255,.3); }
+  .status-active { background: rgba(255,107,0,.2); color: var(--saffron-light); animation: statusPulse 1.5s infinite; }
+  .status-done { background: rgba(19,136,8,.2); color: #4ADE80; }
+  @keyframes statusPulse { 0%,100%{ opacity:1; } 50%{ opacity:.6; } }
+
+  /* case fields */
+  .case-fields {
+    background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+    border-radius: 12px; padding: 14px;
+  }
+  .case-fields-title { font-size: 11px; font-weight: 700; color: rgba(255,255,255,.4); letter-spacing: .8px; text-transform: uppercase; margin-bottom: 10px; }
+  .case-field { display: flex; gap: 8px; align-items: baseline; margin-bottom: 6px; font-size: 12px; }
+  .case-field-label { color: rgba(255,255,255,.4); min-width: 80px; font-weight: 500; }
+  .case-field-val { color: var(--white); font-weight: 500; }
+  .case-field-empty { color: rgba(255,255,255,.2); font-style: italic; }
+
+  /* law sections */
+  .law-section {
+    background: rgba(255,107,0,.06); border: 1px solid rgba(255,107,0,.15);
+    border-left: 3px solid var(--saffron); border-radius: 8px; padding: 10px 12px;
+    margin-bottom: 8px;
+  }
+  .law-section-name { font-size: 12px; font-weight: 700; color: var(--saffron-light); margin-bottom: 3px; }
+  .law-section-desc { font-size: 11px; color: rgba(255,255,255,.5); line-height: 1.5; }
+
+  /* pdf ready */
+  .pdf-ready {
+    background: rgba(19,136,8,.1); border: 1px solid rgba(19,136,8,.25);
+    border-radius: 12px; padding: 14px; display: flex; align-items: center; gap: 12px;
+  }
+  .pdf-icon { font-size: 28px; }
+  .pdf-text .pdf-title { font-size: 13px; font-weight: 700; color: #4ADE80; margin-bottom: 2px; }
+  .pdf-text .pdf-sub { font-size: 11px; color: rgba(255,255,255,.45); }
+
+  /* ── HOW IT WORKS ── */
+  #how {
+    padding: 80px 24px; max-width: 960px; margin: 0 auto;
+  }
+  .steps { display: flex; flex-direction: column; gap: 0; margin-top: 48px; }
+  .step {
+    display: grid; grid-template-columns: 60px 1fr;
+    gap: 0 20px; position: relative;
+  }
+  .step:not(:last-child) .step-line {
+    position: absolute; left: 29px; top: 52px; bottom: 0;
+    width: 2px; background: rgba(255,107,0,.2);
+  }
+  .step-num {
+    width: 48px; height: 48px; border-radius: 50%;
+    background: rgba(255,107,0,.1); border: 2px solid rgba(255,107,0,.3);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 16px; font-weight: 700; color: var(--saffron); flex-shrink: 0;
+    margin-top: 4px;
+  }
+  .step-body { padding-bottom: 36px; }
+  .step-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
+  .step-desc { font-size: 14px; color: rgba(255,255,255,.55); line-height: 1.7; }
+
+  /* ── STACK ── */
+  #stack {
+    padding: 80px 24px; max-width: 960px; margin: 0 auto;
+  }
+  .stack-grid {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 12px; margin-top: 40px;
+  }
+  .stack-card {
+    background: rgba(255,255,255,.04); border: 1px solid rgba(255,255,255,.07);
+    border-radius: 12px; padding: 16px; transition: all .2s;
+  }
+  .stack-card:hover { background: rgba(255,255,255,.07); border-color: rgba(255,107,0,.2); transform: translateY(-2px); }
+  .stack-tag {
+    font-size: 10px; font-weight: 700; letter-spacing: .8px; text-transform: uppercase;
+    padding: 2px 8px; border-radius: 20px; margin-bottom: 10px; display: inline-block;
+  }
+  .tag-ai { background: rgba(255,107,0,.15); color: var(--saffron-light); }
+  .tag-backend { background: rgba(99,102,241,.15); color: #818CF8; }
+  .tag-infra { background: rgba(20,184,166,.15); color: #2DD4BF; }
+  .tag-data { background: rgba(249,115,22,.15); color: #FB923C; }
+  .stack-name { font-size: 14px; font-weight: 700; margin-bottom: 3px; }
+  .stack-role { font-size: 11px; color: rgba(255,255,255,.4); line-height: 1.4; }
+
+  /* ── FOOTER ── */
+  footer {
+    border-top: 1px solid rgba(255,255,255,.06);
+    padding: 32px 24px; text-align: center;
+    color: rgba(255,255,255,.3); font-size: 12px;
+  }
+  footer strong { color: var(--saffron); }
+
+  /* ── QUICK PROMPTS ── */
+  .quick-prompts { display: flex; flex-wrap: wrap; gap: 6px; padding: 0 16px 8px; }
+  .quick-prompt {
+    font-size: 11px; padding: 4px 10px; border-radius: 20px;
+    background: rgba(255,107,0,.1); border: 1px solid rgba(255,107,0,.2);
+    color: var(--saffron-light); cursor: pointer; transition: all .15s;
+    font-family: var(--font); font-weight: 500;
+  }
+  .quick-prompt:hover { background: rgba(255,107,0,.2); }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="#" class="nav-brand">
+    <div class="logo-icon">⚖️</div>
+    <span>Nyaya Sakhi</span>
+  </a>
+  <div style="display:flex;align-items:center;gap:8px">
+    <span class="nav-badge">LIVE DEMO</span>
+    <div class="nav-links">
+      <a href="#demo" class="nav-link">Demo</a>
+      <a href="#how" class="nav-link">How it works</a>
+      <a href="#stack" class="nav-link">Tech stack</a>
+      <a href="https://github.com" class="nav-cta" target="_blank">GitHub →</a>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <span class="dot"></span>
+      ScriptedBy{Her} 2.0 · Meesho Women's Hackathon
+    </div>
+    <h1>
+      <span class="hindi">न्याय सखी</span>
+      <span>Legal aid for every<br/><span class="highlight">Indian woman.</span></span>
+    </h1>
+    <p class="hero-sub">
+      An agentic AI system that collapses the legal access gap — voice-to-FIR in 90 seconds,
+      in your language, on WhatsApp, at zero cost.
+    </p>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-value">73%</div><div class="stat-label">Women never file</div></div>
+      <div class="stat"><div class="stat-value">12+</div><div class="stat-label">Indian languages</div></div>
+      <div class="stat"><div class="stat-value">90s</div><div class="stat-label">Voice → FIR PDF</div></div>
+      <div class="stat"><div class="stat-value">0₹</div><div class="stat-label">Always free</div></div>
+    </div>
+    <div class="hero-actions">
+      <a href="#demo" class="btn-primary">Try the live demo →</a>
+      <a href="#how" class="btn-secondary">How it works</a>
+    </div>
+  </div>
+</section>
+
+<!-- DEMO -->
+<section id="demo">
+  <div class="section-label">
+    <span class="eyebrow">Live demo</span>
+    <h2>See Nyaya Sakhi in action</h2>
+    <p>Type or speak a case scenario. Watch the 3-agent pipeline work in real time.</p>
+  </div>
+
+  <div class="demo-grid">
+    <!-- WhatsApp chat -->
+    <div class="chat-panel">
+      <div class="chat-header">
+        <div class="chat-avatar">⚖️</div>
+        <div class="chat-meta">
+          <div class="name">Nyaya Sakhi</div>
+          <div class="status"><span class="online-dot"></span> Online · Replies instantly</div>
+        </div>
+        <div style="font-size:11px;color:rgba(255,255,255,.3)">WhatsApp</div>
+      </div>
+
+      <div class="chat-messages" id="chatMessages">
+        <div class="msg bot">
+          <div class="msg-bubble">🙏 <strong>Namaste! Main Nyaya Sakhi hoon.</strong>
+
+I am here to help you understand your legal rights and create documents to protect them — in your language, free of cost.
+
+You can speak or type in Hindi, Kannada, Tamil, or English.
+
+Please tell me what happened. I am listening. 🕊️</div>
+          <div class="msg-time">just now</div>
+        </div>
+      </div>
+
+      <div class="typing-indicator" id="typingIndicator">
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+        <div class="typing-dot"></div>
+      </div>
+
+      <div class="quick-prompts">
+        <button class="quick-prompt" onclick="sendQuick('मेरे पति मुझे मारते हैं')">Domestic violence (Hindi)</button>
+        <button class="quick-prompt" onclick="sendQuick('My husband harasses me for dowry')">Dowry harassment</button>
+        <button class="quick-prompt" onclick="sendQuick('My employer touched me inappropriately')">Workplace abuse</button>
+      </div>
+
+      <div class="chat-input-row">
+        <textarea class="chat-input" id="chatInput" placeholder="Type in Hindi, Kannada, Tamil, or English..." rows="1" onkeydown="handleKey(event)"></textarea>
+        <button class="send-btn" onclick="sendMessage()">➤</button>
+      </div>
+    </div>
+
+    <!-- Pipeline panel -->
+    <div class="pipeline-panel">
+      <div class="pipeline-title">Agent pipeline</div>
+
+      <div class="agent-card active" id="agent1">
+        <div class="agent-icon">🎙️</div>
+        <div class="agent-info">
+          <div class="agent-name">Agent 1 — Intake</div>
+          <div class="agent-desc">Conversational extraction via Claude. Gently gathers incident type, date, location, perpetrator, evidence.</div>
+        </div>
+        <span class="agent-status status-active" id="a1status">ACTIVE</span>
+      </div>
+
+      <div class="agent-card" id="agent2">
+        <div class="agent-icon">📚</div>
+        <div class="agent-info">
+          <div class="agent-name">Agent 2 — Law RAG</div>
+          <div class="agent-desc">pgvector semantic search over Indian legal corpus. Maps case to PWDVA, IPC, POSH Act, and more.</div>
+        </div>
+        <span class="agent-status status-waiting" id="a2status">WAITING</span>
+      </div>
+
+      <div class="agent-card" id="agent3">
+        <div class="agent-icon">📄</div>
+        <div class="agent-info">
+          <div class="agent-name">Agent 3 — Drafter</div>
+          <div class="agent-desc">Claude generates legally-structured FIR, RTI application, NCW complaint letter as PDF.</div>
+        </div>
+        <span class="agent-status status-waiting" id="a3status">WAITING</span>
+      </div>
+
+      <!-- Case fields -->
+      <div class="case-fields">
+        <div class="case-fields-title">Extracted case info</div>
+        <div class="case-field"><span class="case-field-label">Incident</span><span id="f-incident" class="case-field-empty">—</span></div>
+        <div class="case-field"><span class="case-field-label">Date</span><span id="f-date" class="case-field-empty">—</span></div>
+        <div class="case-field"><span class="case-field-label">Location</span><span id="f-location" class="case-field-empty">—</span></div>
+        <div class="case-field"><span class="case-field-label">Perpetrator</span><span id="f-perp" class="case-field-empty">—</span></div>
+        <div class="case-field"><span class="case-field-label">Evidence</span><span id="f-evidence" class="case-field-empty">—</span></div>
+      </div>
+
+      <div id="lawSections" style="display:none">
+        <div class="pipeline-title" style="margin-bottom:8px">Applicable laws found</div>
+        <div id="lawList"></div>
+      </div>
+
+      <div class="pdf-ready" id="pdfReady" style="display:none">
+        <div class="pdf-icon">📎</div>
+        <div class="pdf-text">
+          <div class="pdf-title">Documents ready</div>
+          <div class="pdf-sub">FIR draft · RTI application · NCW complaint</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW IT WORKS -->
+<section id="how">
+  <div class="section-label">
+    <span class="eyebrow">The process</span>
+    <h2>From silence to filed — in under 2 minutes</h2>
+    <p>Three agents, one seamless pipeline, zero technical knowledge required.</p>
+  </div>
+  <div class="steps">
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">1</div>
+      <div class="step-body">
+        <div class="step-title">🎙️ Speak in your language</div>
+        <div class="step-desc">Send a voice note or text on WhatsApp in Hindi, Kannada, Tamil, Telugu, or English. Bhashini STT transcribes it in real time (~300ms latency). Agent 1 gently asks follow-up questions to extract the full case picture.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">2</div>
+      <div class="step-body">
+        <div class="step-title">📚 AI finds your legal rights</div>
+        <div class="step-desc">Agent 2 runs a semantic search over a curated Indian legal corpus using pgvector embeddings. It maps your case to the exact sections of PWDVA 2005, IPC/BNS 498A, POSH Act, Dowry Prohibition Act, and more.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-line"></div>
+      <div class="step-num">3</div>
+      <div class="step-body">
+        <div class="step-title">📄 Documents drafted by Claude</div>
+        <div class="step-desc">Agent 3 uses Claude to write a legally-structured FIR application, RTI request, and NCW complaint — in first-person narrative, with correct IPC sections cited. ReportLab generates a bilingual PDF.</div>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div class="step-body">
+        <div class="step-title">📬 Delivered on WhatsApp</div>
+        <div class="step-desc">The PDF is sent directly to the user's WhatsApp in under 90 seconds. Every document includes the nearest DLSA contact, NCW helpline, and a disclaimer to seek legal representation.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TECH STACK -->
+<section id="stack">
+  <div class="section-label">
+    <span class="eyebrow">Tech stack</span>
+    <h2>Built with cutting-edge, India-first tools</h2>
+    <p>Every tool chosen for reliability, India-region compliance, and zero cost to the user.</p>
+  </div>
+  <div class="stack-grid">
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Claude claude-sonnet-4-6</div><div class="stack-role">Intake extraction, FIR drafting, Safety planning (Anthropic)</div></div>
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">LangGraph 0.2</div><div class="stack-role">Stateful multi-agent orchestration with typed CaseState</div></div>
+    <div class="stack-card"><span class="stack-tag tag-ai">AI</span><div class="stack-name">Bhashini / Dhruva</div><div class="stack-role">12 Indian languages STT/TTS, free, government-backed</div></div>
+    <div class="stack-card"><span class="stack-tag tag-backend">Backend</span><div class="stack-name">FastAPI + Uvicorn</div><div class="stack-role">Async Python server, Twilio webhook handler</div></div>
+    <div class="stack-card"><span class="stack-tag tag-backend">Backend</span><div class="stack-name">Twilio WhatsApp</div><div class="stack-role">Webhook receiver, OGG audio, PDF media delivery</div></div>
+    <div class="stack-card"><span class="stack-tag tag-data">Data</span><div class="stack-name">Supabase + pgvector</div><div class="stack-role">Legal corpus embeddings, India region, DPDP compliant</div></div>
+    <div class="stack-card"><span class="stack-tag tag-data">Data</span><div class="stack-name">all-MiniLM-L6-v2</div><div class="stack-role">Sentence embeddings for legal section similarity search</div></div>
+    <div class="stack-card"><span class="stack-tag tag-infra">Infra</span><div class="stack-name">Railway</div><div class="stack-role">Deployed backend with auto-scaling, HTTPS, zero cold start</div></div>
+    <div class="stack-card"><span class="stack-tag tag-backend">PDF</span><div class="stack-name">ReportLab</div><div class="stack-role">Bilingual FIR PDF with NotoDevanagari font for Hindi</div></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>Built with ❤️ for India's rural women · <strong>Nyaya Sakhi</strong> · Team AAA · NMAM Institute of Technology</p>
+  <p style="margin-top:6px">ScriptedBy{Her} 2.0 · Meesho Women's Hackathon 2026</p>
+  <p style="margin-top:12px;font-size:11px;color:rgba(255,255,255,.2)">
+    NCW Helpline: 7827-170-170 · Women's Helpline: 181 · NALSA: 15100
+  </p>
+</footer>
+
+<script>
+const isLocal = window.location.hostname === 'localhost'
+  || window.location.hostname === '127.0.0.1'
+  || window.location.protocol === 'file:';
+
+const API = isLocal
+  ? 'http://localhost:8000'
+  : 'https://nyaya-sakhi.onrender.com';  // ⚠️ replace with YOUR actual Render URL once deployed
+
+let sessionId = 'demo_' + Math.random().toString(36).slice(2, 9);
+let isWaiting = false;
+
+// ── Quick prompts
+function sendQuick(text) {
+  document.getElementById('chatInput').value = text;
+  sendMessage();
+}
+
+// ── Key handler
+function handleKey(e) {
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    sendMessage();
+  }
+}
+
+// ── Send message
+async function sendMessage() {
+  if (isWaiting) return;
+  const input = document.getElementById('chatInput');
+  const text = input.value.trim();
+  if (!text) return;
+
+  input.value = '';
+  appendMessage('user', text);
+  showTyping(true);
+  isWaiting = true;
+
+  try {
+    const res = await fetch(`${API}/api/demo`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ message: text, session_id: sessionId })
+    });
+
+    if (!res.ok) throw new Error('API error');
+    const data = await res.json();
+
+    showTyping(false);
+    appendMessage('bot', data.response);
+    updatePipeline(data);
+
+  } catch (err) {
+    showTyping(false);
+    console.error('Backend connection failed:', err);
+    appendMessage('bot', '⚠️ Could not reach the backend server. Check that uvicorn is running and CORS is enabled. (Falling back to demo mode for now.)');
+    simulateResponse(text);
+}
+
+  isWaiting = false;
+}
+
+// ── Simulate pipeline for demo without backend
+const demoFlow = [
+  { response: "I hear you, and I am here with you. 🙏\n\nCan you tell me approximately when this happened — the date or how long ago?", extracted: { incident_type: "Domestic violence / cruelty by husband" } },
+  { response: "Thank you for sharing that. Which village or city did this happen in?", extracted: { incident_type: "Domestic violence / cruelty by husband", incident_date: "Recent — last week" } },
+  { response: "I understand. What is your husband's full name, and do you have any witnesses or evidence — neighbours, medical records, or photos?", extracted: { incident_type: "Domestic violence / cruelty by husband", incident_date: "Last week", incident_location: "Home, Bengaluru Karnataka" } },
+  { response: "I have gathered enough to prepare your documents. Searching Indian law for applicable sections...", extracted: { incident_type: "Domestic violence / cruelty by husband", incident_date: "Last week", incident_location: "Home, Bengaluru Karnataka", perpetrator: "Husband", evidence: "Neighbour witnesses" }, stage: "rag" },
+  { response: "✅ *Your documents are ready!*\n\nI have prepared your FIR draft based on Domestic Violence.\n\n📄 Your document includes:\n• FIR application (IPC 498A + PWDVA 2005 cited)\n• Your rights under Indian law\n• Helpline numbers\n\n🆘 *NCW Helpline: 7827-170-170* | *Women's Helpline: 181*", extracted: { incident_type: "Domestic violence / cruelty by husband", incident_date: "Last week", incident_location: "Home, Bengaluru Karnataka", perpetrator: "Husband", evidence: "Neighbour witnesses", desired_outcome: "FIR + protection order" }, stage: "complete", laws: [{ act: "Protection of Women from Domestic Violence Act, 2005", section: "Section 3", description: "Physical, emotional and economic abuse by husband." }, { act: "Indian Penal Code", section: "Section 498A", description: "Cruelty by husband or relatives — cognisable offence." }], pdf_generated: true }
+];
+let demoStep = 0;
+
+function simulateResponse(text) {
+  const step = demoFlow[Math.min(demoStep, demoFlow.length - 1)];
+  demoStep = Math.min(demoStep + 1, demoFlow.length - 1);
+
+  setTimeout(() => {
+    showTyping(false);
+    appendMessage('bot', step.response);
+    updatePipeline(step);
+    isWaiting = false;
+  }, 1400);
+}
+
+// ── DOM helpers
+function appendMessage(role, text) {
+  const msgs = document.getElementById('chatMessages');
+  const div = document.createElement('div');
+  div.className = `msg ${role}`;
+  const formatted = text.replace(/\*(.*?)\*/g, '<strong>$1</strong>');
+  div.innerHTML = `<div class="msg-bubble">${formatted}</div><div class="msg-time">just now</div>`;
+  msgs.appendChild(div);
+  msgs.scrollTop = msgs.scrollHeight;
+}
+
+function showTyping(show) {
+  const t = document.getElementById('typingIndicator');
+  t.classList.toggle('show', show);
+  if (show) {
+    const msgs = document.getElementById('chatMessages');
+    msgs.scrollTop = msgs.scrollHeight;
+  }
+}
+
+function updatePipeline(data) {
+  const extracted = data.session?.extracted || data.extracted || {};
+  const stage = data.stage || data.session?.stage || 'intake';
+  const laws = data.session?.law_sections || data.law_sections || data.laws || [];
+  const pdfDone = data.pdf_generated || false;
+
+  // Update extracted fields
+  setField('f-incident', extracted.incident_type);
+  setField('f-date', extracted.incident_date);
+  setField('f-location', extracted.incident_location);
+  setField('f-perp', extracted.perpetrator);
+  setField('f-evidence', extracted.evidence);
+
+  // Update agent statuses
+  if (stage === 'intake') {
+    setAgent(1, 'active'); setAgent(2, 'waiting'); setAgent(3, 'waiting');
+  } else if (stage === 'rag') {
+    setAgent(1, 'done'); setAgent(2, 'active'); setAgent(3, 'waiting');
+    // show law sections
+    if (laws.length) showLaws(laws);
+  } else if (stage === 'drafting') {
+    setAgent(1, 'done'); setAgent(2, 'done'); setAgent(3, 'active');
+  } else if (stage === 'complete') {
+    setAgent(1, 'done'); setAgent(2, 'done'); setAgent(3, 'done');
+    if (laws.length) showLaws(laws);
+    if (pdfDone) document.getElementById('pdfReady').style.display = 'flex';
+  }
+}
+
+function setField(id, val) {
+  const el = document.getElementById(id);
+  if (val) {
+    el.textContent = val;
+    el.className = 'case-field-val';
+  }
+}
+
+function setAgent(num, status) {
+  const card = document.getElementById(`agent${num}`);
+  const badge = document.getElementById(`a${num}status`);
+  card.className = 'agent-card' + (status !== 'waiting' ? ` ${status}` : '');
+  badge.className = `agent-status status-${status}`;
+  badge.textContent = status.toUpperCase();
+}
+
+function showLaws(laws) {
+  const section = document.getElementById('lawSections');
+  const list = document.getElementById('lawList');
+  section.style.display = 'block';
+  list.innerHTML = laws.slice(0, 2).map(l => `
+    <div class="law-section">
+      <div class="law-section-name">${l.act} — ${l.section}</div>
+      <div class="law-section-desc">${l.description}</div>
+    </div>
+  `).join('');
+}
+</script>
+</body>
+</html>

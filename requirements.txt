@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+twilio
+google-generativeai
+chromadb
+reportlab
+gtts
+openai-whisper
+httpx
+python-multipart
